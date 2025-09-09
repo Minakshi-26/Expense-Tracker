@@ -1,0 +1,30 @@
+<!-- add expense -->
+{% extends "base.html" %}
+{% block title %}Add Expense{% endblock %}
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h3 class="mb-3">➕ Add Expense</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Category</label>
+            <input type="text" name="category" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Amount (₹)</label>
+            <input type="number" name="amount" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Date</label>
+            <input type="date" name="date" class="form-control" required>
+        </div>
+        <button class="btn btn-success w-100">Add</button>
+    </form>
+</div>
+{% endblock %}
+
+
+

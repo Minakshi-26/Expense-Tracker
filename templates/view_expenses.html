@@ -1,0 +1,37 @@
+{# view expense #}
+{% extends "base.html" %}
+
+{% block title %}View Expenses{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">📋 Your Expenses</h2>
+
+    {% if expenses %}
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>title</th>
+                    <th>Amount (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.title }}</td>
+                    <td>{{ expense.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">No expenses found. Start by adding one!</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+
