@@ -8,3 +8,11 @@ matplotlib
 gunicorn
 openpyxl
 xlwt
+Flask==3.0.0
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.1.1
+pandas==2.2.2
+matplotlib==3.8.4
+XlsxWriter==3.2.0
+gunicorn==21.2.0
+flask-bcrypt
