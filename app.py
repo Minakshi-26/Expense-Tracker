@@ -1,4 +1,3 @@
-#----------------app.py------------------------
 from flask import Flask, render_template
 from extensions import db, login_manager, bcrypt
 import os
@@ -12,14 +11,14 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    #  File Upload Config
+    # File Upload Config
     app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), "uploads")
     app.config['REPORT_FOLDER'] = os.path.join(os.getcwd(), "reports")
 
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     os.makedirs(app.config['REPORT_FOLDER'], exist_ok=True)
 
-    #  Init Extensions
+    # Init Extensions
     db.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
@@ -27,18 +26,17 @@ def create_app():
     login_manager.login_view = "main.login"
     login_manager.login_message_category = "info"
 
-    #  Register Blueprints 
+    # Register Blueprints
     from routes import main_routes
     app.register_blueprint(main_routes)
 
-    #  User Loader 
+    # User Loader 
     from models import User
-
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    #  Logging Setup
+    # Logging Setup
     logging.basicConfig(
         filename="error.log",
         level=logging.ERROR,
@@ -47,12 +45,14 @@ def create_app():
 
     return app
 
+# 👇 Global app (Render ko yahi chahiye)
+app = create_app()
 
 if __name__ == "__main__":
-    app = create_app()
     with app.app_context():
-        db.create_all()  
-    app.run(debug=True)
+        db.create_all()
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
